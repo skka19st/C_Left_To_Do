@@ -27,29 +27,37 @@ namespace C_Left_To_Do
         // get = läsbehörighet
         public string Text { 
             get { return text; } 
-        }
-            
+        }            
         // property/egenskap för uppgiftens status
         // get = läsbehörighet
         public string Status { 
             get { return status; } 
+            set { status = value; }
         }
-
-
         // Ändra status för uppgiften
         // från 'E' (ej klar) till 'K' (klar)
-        public void StatusKlar() {
-            if (status == "E") {
-                status = "K";
-            } 
-        }
-
-        // Ändra status för uppgiften
         // från 'K' (klar) till 'E' (ej klar)
-        public void StatusEjKlar() {
-            if (status == "K") {
-                status = "E";
-            } 
+        // public string StatusChange() {
+        //         if (status == "E") {
+        //             return "K";
+        //         } 
+        //         if (status == "K") {
+        //            return "E";
+        //         } 
+        //         // ingen ändring av status
+        //         return status;
+        // }
+        public void StatusChange() {
+
+                if (status == "E") {
+                    status = "K";
+                    return;
+                } 
+                if (status == "K") {
+                   status = "E";
+                   return;
+                } 
+
         }
         // Arkivera uppgiften
         // uppgiften måste ha status 'K' (klar)
@@ -62,22 +70,23 @@ namespace C_Left_To_Do
         // denna metod anropas även från subklasserna
         protected string ByggUtskriftRad() {
             string utskrift = text;
-            utskrift += ", status ";
+            utskrift += ", status: ";
             utskrift += StatusKlartext();
+            utskrift += ". ";
             return utskrift;
         }
         // status-koden byts mot ett förklarande ord
-        // Arkiverade uppgifter visas i egen lista och 
-        // behöver inte visa status (statustext)
         private string StatusKlartext() {
             if (status == "E") {
                 return "Ej utförd"; 
             }
             if (status == "K") {
                 return "Klar"; 
-            } else {
-                return "";
             }
+            if (status == "A") {
+                return "Arkiverad"; 
+            }
+            return "";
         }
         // skapa en redigerad rad för utskrift
         // anropar en metod som delas med subklasserna

@@ -3,7 +3,7 @@ using Xunit;
 
 namespace C_Left_To_Do.test
 {
-    public class UnitTest1
+    public class ChangeStatus
     {
 
         [Fact]
@@ -54,13 +54,13 @@ namespace C_Left_To_Do.test
             var testobj2 = new cUppgift("arkiverad");
             testobj2.StatusKlar();
 
-            var testobj3 = new cUppgift("arkiverad, ej ändrad tillbaka");
+            var testobj3 = new cUppgift("redan arkiverad");
             testobj3.StatusKlar();
+            testobj3.StatusArkivera();
 
             // act - test-case
             testobj1.StatusArkivera();
             testobj2.StatusArkivera();
-            testobj3.StatusArkivera();
             testobj3.StatusArkivera();
 
             // assert - säkerställa resultat

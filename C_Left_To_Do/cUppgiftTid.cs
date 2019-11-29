@@ -40,7 +40,7 @@ namespace C_Left_To_Do
         public override string SkapaUtskriftRad() {
             string utskriftsrad;
             utskriftsrad = ByggUtskriftRad();
-            utskriftsrad += " beräknad tid, i timmar: ";
+            utskriftsrad += "Beräknad tid (timmar): ";
             utskriftsrad += tid;
             return utskriftsrad;
         }
