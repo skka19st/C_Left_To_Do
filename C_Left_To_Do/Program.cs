@@ -47,7 +47,13 @@ namespace C_Left_To_Do
         static private string HanteraMeny()
         {
             Console.WriteLine(" ");
-            Console.WriteLine("SKRIV IN FÖRKLARANDE TEXT");
+            Console.WriteLine("Här kan du lägga upp dagens uppgifter.");
+            Console.WriteLine("Du kan välja om din uppgift ska ha en tidsuppskattning eller inte");
+            Console.WriteLine("Du kan ändra status på uppgifter som inte är arkiverade");
+            Console.WriteLine("Arkiverade uppgifter visas på separat lista");
+            Console.WriteLine("För att arkiveras måste uppgiften ha status 'Klar'");
+            Console.WriteLine("");
+            Console.WriteLine("MENY");
             Console.WriteLine("[1] Lägg till ny uppgift");
             Console.WriteLine("[2] Arkivera utförda uppgifter");
             Console.WriteLine("[3] Lista dagens uppgifter");
@@ -72,14 +78,17 @@ namespace C_Left_To_Do
 
             // tidsåtgång ej ifyllt = skapa klass cUppgift
             // tidsåtgång ifyllt = skapa klass cUppgiftTid
+            cUppgift uppgift;
             if (tidx == "") {
-                cUppgift uppgift = new cUppgift(beskrivning);
-                lista.Add(uppgift);
+                uppgift = new cUppgift(beskrivning);
             } else {
                 int tid = Convert.ToInt32(tidx);
-                cUppgiftTid uppgiftTid = new cUppgiftTid(beskrivning, tid);
-                lista.Add(uppgiftTid);
-            }  
+                uppgift = new cUppgiftTid(beskrivning, tid);
+            }
+
+            // spara uppgiften i listan
+            lista.Add(uppgift);
+
             // kvittens till användaren
             Console.WriteLine("uppgiften upplagd.");          
         }
@@ -92,20 +101,18 @@ namespace C_Left_To_Do
             {
                 if (rad.Status == "K") {
                     rad.StatusArkivera();
-                    //listaArkiverade.Add(rad);
-                    //lista.Remove(rad);
-                    //lista.
                 }
             }
             // kvittens till användare
-            Console.WriteLine("Arkivering av uppgifter utförd");
-            Console.WriteLine("");
+            Console.WriteLine("Arkivering av uppgifter utförd.");
         }
         // utskrift av samtliga uppgifter, utom de arkiverade
         // möjlighet att ändra status
         // static = klassmetod/instansmetod, utan skapat objekt
         static private void ListaUppgifter()
         {
+            // uppgifter listas och ev byter status
+            // utskriften görs om efter varje ändring av status
             // loop som avslutas med val '0' - Tillbaka till menyn
             bool changeStatus = true;            
             while (changeStatus)
@@ -114,9 +121,8 @@ namespace C_Left_To_Do
                 Console.WriteLine("");
 
                 // urval till utskriften med hjälp av loop genom listan
-                // ett radnr (skapat mha list-index) läggs till vid utskrift
+                // ett radnr (skapat mha list-index) läggs till för identifiering
                 for (int ind = 0 ; ind < lista.Count ; ind++)
-                //foreach (cUppgift rad in lista)
                 {
                     if (lista[ind].Status != "A") {
                         string utskrift = "radnr ";
@@ -126,18 +132,20 @@ namespace C_Left_To_Do
                         Console.WriteLine(utskrift);
                     }
                 }
-
-                // möjlighet att ändra status på uppgifterna
+                // ändra status på uppgift
                 // loop tills '0' (tillbaka till menyn) anges
                 string val = BehandlaStatus();
                 if (val == "0") {
                     changeStatus = false;
                 }
             }
-
         }
-        // möjlighet att ändra status på uppgifter (ej arkiverade)
+        // ändra status på uppgifter (ej arkiverade)
+        // direkt tillbaka till menyn om listan är tom
         static private string BehandlaStatus() {
+            if (lista.Count < 1) {
+                return "0";
+            }
             Console.WriteLine(" ");
             Console.WriteLine("För att ändra status, ange radnr");
             Console.WriteLine("[0] för att komma tillbaka till menyn");
@@ -161,9 +169,7 @@ namespace C_Left_To_Do
             }
 
             // ändra status för angiven rad
-            //rad.StatusChange();
             lista[val].StatusChange();
-            //lista[val].Status = lista[val].StatusChange();
             return valx;
         }
 
@@ -183,11 +189,13 @@ namespace C_Left_To_Do
                 }
             }
         }
+        // körningen avslutas
         // static = klassmetod/instansmetod, utan skapat objekt
         static void Avsluta()
         {
             Console.WriteLine("hej då, tack för idag!");            
         }
+        // info om felaktigt val
         static void FelaktigtVal()
         {
             Console.WriteLine("Val 0-4 är möjliga");           

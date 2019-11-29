@@ -34,14 +34,13 @@ namespace C_Left_To_Do.test
             var testobj2 = new cUppgiftTid("klass uppgiftTid", 3);
 
             // act - test-case
-            testobj1.StatusEjKlar();
-            testobj1.StatusKlar();
+            testobj1.StatusChange();
             testobj1.StatusArkivera();
+            testobj1.SkapaUtskriftRad();
 
-            testobj2.StatusEjKlar();
-            testobj2.StatusKlar();
+            testobj2.StatusChange();
             testobj2.StatusArkivera();
-
+            testobj2.SkapaUtskriftRad();
 
             // assert - säkerställa resultat
             // förväntat värde, faktiskt värde            

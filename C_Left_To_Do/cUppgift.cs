@@ -29,24 +29,13 @@ namespace C_Left_To_Do
             get { return text; } 
         }            
         // property/egenskap för uppgiftens status
-        // get = läsbehörighet
         public string Status { 
             get { return status; } 
             set { status = value; }
         }
-        // Ändra status för uppgiften
+        // ändring av status
         // från 'E' (ej klar) till 'K' (klar)
         // från 'K' (klar) till 'E' (ej klar)
-        // public string StatusChange() {
-        //         if (status == "E") {
-        //             return "K";
-        //         } 
-        //         if (status == "K") {
-        //            return "E";
-        //         } 
-        //         // ingen ändring av status
-        //         return status;
-        // }
         public void StatusChange() {
 
                 if (status == "E") {
@@ -57,7 +46,6 @@ namespace C_Left_To_Do
                    status = "E";
                    return;
                 } 
-
         }
         // Arkivera uppgiften
         // uppgiften måste ha status 'K' (klar)
@@ -86,10 +74,10 @@ namespace C_Left_To_Do
             if (status == "A") {
                 return "Arkiverad"; 
             }
-            return "";
+            return "statuskod saknas";
         }
         // skapa en redigerad rad för utskrift
-        // anropar en metod som delas med subklasserna
+        // anropar en egen metod som delas med subklasserna
         // virtual = metod med samma namn kan finnas i subklasserna
         public virtual string SkapaUtskriftRad() {
             string utskriftsrad;
